@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { PageLayout } from '@/components/layout/PageLayout';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell, Treemap, LineChart, Line } from 'recharts';
@@ -76,6 +75,11 @@ const Analysis = () => {
   // Custom content for the treemap
   const CustomizedContent = (props: any) => {
     const { root, depth, x, y, width, height, index, name, changePercent, value } = props;
+
+    // Only render for nodes with a numeric changePercent
+    if (typeof changePercent !== 'number' || isNaN(changePercent)) {
+      return null;
+    }
     
     // Color based on change percent (green for positive, red for negative)
     const color = changePercent >= 0 ? "#4ade80" : "#f87171";
